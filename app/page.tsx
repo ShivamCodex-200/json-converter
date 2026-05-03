@@ -1,101 +1,167 @@
 import Link from 'next/link';
+import { 
+  FileSpreadsheet, 
+  FileJson, 
+  FileCode, 
+  FileText, 
+  Table, 
+  Braces,
+  ShieldCheck,
+  Zap,
+  Cpu
+} from 'lucide-react';
 
 const tools = [
   {
     title: 'JSON to CSV',
-    description: 'Convert JSON to comma-separated values for Excel or Sheets.',
+    description: 'Convert structured JSON to professional CSV files for analysis.',
     href: '/json-to-csv',
-    icon: '📊'
+    icon: <FileSpreadsheet className="w-6 h-6 text-emerald-500" />,
+    iconBg: 'bg-emerald-500/10'
   },
   {
     title: 'JSON to Excel',
-    description: 'Export JSON data directly to professional .xlsx files.',
+    description: 'Export large JSON datasets to native XLSX spreadsheets instantly.',
     href: '/json-to-excel',
-    icon: '📈'
+    icon: <Cpu className="w-6 h-6 text-blue-500" />,
+    iconBg: 'bg-blue-500/10'
   },
   {
     title: 'JSON to XML',
-    description: 'Transform JSON into well-formatted XML tags.',
+    description: 'Generate clean, validated XML tags from any JSON object.',
     href: '/json-to-xml',
-    icon: '🔗'
+    icon: <FileCode className="w-6 h-6 text-orange-500" />,
+    iconBg: 'bg-orange-500/10'
   },
   {
     title: 'JSON to YAML',
-    description: 'Convert JSON to human-friendly YAML format.',
+    description: 'Transform JSON to human-readable YAML for configuration.',
     href: '/json-to-yml',
-    icon: '📝'
+    icon: <FileText className="w-6 h-6 text-purple-500" />,
+    iconBg: 'bg-purple-500/10'
   },
   {
     title: 'JSON to String',
-    description: 'Minify and compact JSON into a single string.',
+    description: 'Minify and optimize JSON payloads for production transmission.',
     href: '/json-to-string',
-    icon: '🧵'
+    icon: <Braces className="w-6 h-6 text-indigo-500" />,
+    iconBg: 'bg-indigo-500/10'
   },
   {
     title: 'JSON to Table',
-    description: 'Visualize nested JSON data in a structured table.',
+    description: 'Visualize complex nested JSON data in a responsive table.',
     href: '/json-to-table',
-    icon: '📅'
+    icon: <Table className="w-6 h-6 text-rose-500" />,
+    iconBg: 'bg-rose-500/10'
   }
 ];
 
 export default function HomePage() {
   return (
-    <div className="space-y-16 animate-in fade-in duration-1000">
-      <section className="text-center space-y-6 pt-12">
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
-          Modern <span className="gradient-text">JSON Utilities</span>
-        </h1>
-        <p className="text-neutral-400 text-xl max-w-3xl mx-auto leading-relaxed">
-          The ultimate conversion suite for developers. Secure, client-side, and high-performance tools for all your JSON transformation needs.
-        </p>
-        <div className="flex justify-center gap-4 pt-4">
-          <div className="px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs font-semibold">
-            100% Client Side
+    <div className="space-y-32 animate-in fade-in duration-1000">
+      {/* Hero Section */}
+      <section className="text-center space-y-10 py-12 relative">
+        <div className="space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/5 border border-indigo-500/10 text-indigo-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+            <Zap className="w-3 h-3" /> Professional Developer Suite
           </div>
-          <div className="px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full text-purple-400 text-xs font-semibold">
-            Secure & Private
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">
+            Modern <span className="gradient-text">JSON Utilities</span>
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed font-medium">
+            High-fidelity client-side conversion tools. Engineered for privacy, optimized for speed.
+          </p>
+        </div>
+        
+        <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex items-center gap-2 px-5 py-2.5 bg-slate-900/5 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-600 dark:text-slate-400 text-sm font-bold shadow-sm">
+            <ShieldCheck className="w-4 h-4 text-indigo-500" /> 100% Client Side
+          </div>
+          <div className="flex items-center gap-2 px-5 py-2.5 bg-slate-900/5 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-600 dark:text-slate-400 text-sm font-bold shadow-sm">
+            <Zap className="w-4 h-4 text-orange-500" /> Instant Processing
+          </div>
+          <div className="flex items-center gap-2 px-5 py-2.5 bg-slate-900/5 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-600 dark:text-slate-400 text-sm font-bold shadow-sm">
+            <Cpu className="w-4 h-4 text-emerald-500" /> High Performance
           </div>
         </div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Tools Grid */}
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {tools.map((tool) => (
           <Link 
             key={tool.href} 
             href={tool.href}
-            className="group glass-morphism p-8 hover:border-blue-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10"
+            className="group glass-morphism p-10 hover:border-indigo-500/50 transition-all duration-500 flex flex-col justify-between"
           >
-            <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
-              {tool.icon}
+            <div>
+              <div className={`w-14 h-14 ${tool.iconBg} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                {tool.icon}
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-3 group-hover:text-indigo-500 transition-colors">
+                {tool.title}
+              </h3>
+              <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+                {tool.description}
+              </p>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-              {tool.title}
-            </h3>
-            <p className="text-neutral-500 text-sm leading-relaxed">
-              {tool.description}
-            </p>
-            <div className="mt-6 flex items-center text-xs font-bold text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
-              OPEN TOOL <span className="ml-1">→</span>
+            <div className="mt-10 flex items-center text-xs font-bold text-indigo-500 tracking-widest uppercase opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
+              Launch Utility <span className="ml-2">→</span>
             </div>
           </Link>
         ))}
       </section>
 
-      <section className="glass-morphism p-12 text-center space-y-6">
-        <h2 className="text-3xl font-bold text-white">Why ToolCorners?</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-          <div className="space-y-2">
-            <h4 className="text-blue-400 font-semibold">No Data Collection</h4>
-            <p className="text-neutral-500 text-sm">Your data is processed locally in your browser. We never see it, and it never touches our servers.</p>
+      {/* SEO Content Section */}
+      <section className="space-y-16">
+        <div className="text-center space-y-6">
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-slate-50">Why Choose ToolCorners?</h2>
+          <p className="text-slate-600 dark:text-slate-400 max-w-3xl mx-auto text-lg leading-relaxed">
+            In an era where data privacy is paramount, ToolCorners provides a <strong>100% client-side conversion suite</strong>. Whether you're a data analyst converting JSON to Excel or a DevOps engineer generating YAML, our tools ensure your workflow is fast, secure, and professional.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
+              <span className="w-2 h-2 bg-indigo-500 rounded-full" />
+              Developer-First Design
+            </h3>
+            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+              We understand that developers need tools that just work. Our interface is designed with an industrial aesthetic that stays out of your way while providing advanced features like <strong>real-time validation, automatic schema detection, and instant downloads</strong>.
+            </p>
           </div>
-          <div className="space-y-2">
-            <h4 className="text-blue-400 font-semibold">Lightning Fast</h4>
-            <p className="text-neutral-500 text-sm">Built with Next.js 14 and optimized client-side libraries for near-instant results.</p>
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full" />
+              High Performance Engine
+            </h3>
+            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+              Powered by optimized JavaScript libraries and modern browser APIs, our conversion engine handles <strong>large JSON files</strong> with ease. Say goodbye to server timeouts and slow uploads. Everything happens instantly on your machine.
+            </p>
           </div>
-          <div className="space-y-2">
-            <h4 className="text-blue-400 font-semibold">Developer Friendly</h4>
-            <p className="text-neutral-500 text-sm">Clean UI, keyboard shortcuts, and one-click copy/download functionality.</p>
+        </div>
+
+        {/* Home FAQ */}
+        <div className="glass-morphism p-12 space-y-12">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="space-y-3">
+              <h4 className="font-bold text-slate-900 dark:text-slate-50">Is ToolCorners really free?</h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Yes, 100%. Our mission is to provide high-quality developer tools without the clutter of ads or subscription walls. We believe in open, accessible utilities for the global developer community.</p>
+            </div>
+            <div className="space-y-3">
+              <h4 className="font-bold text-slate-900 dark:text-slate-50">Is my data safe here?</h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400">Your data never leaves your browser. We don't have a backend that stores your JSON. The conversion logic runs locally on your device, making it one of the safest tools available online.</p>
+            </div>
+            <div className="space-y-3">
+              <h4 className="font-bold text-slate-900 dark:text-slate-50">Do I need to install anything?</h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400">No installation required. ToolCorners is a progressive web application that works directly in any modern browser (Chrome, Firefox, Safari, Edge).</p>
+            </div>
+            <div className="space-y-3">
+              <h4 className="font-bold text-slate-900 dark:text-slate-50">How do you handle large JSON files?</h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400">We use streaming-capable parsers and efficient memory management to handle multi-megabyte files without freezing your browser interface.</p>
+            </div>
           </div>
         </div>
       </section>

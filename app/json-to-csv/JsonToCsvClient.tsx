@@ -31,32 +31,84 @@ export default function JsonToCsvClient() {
         mimeType="text/csv"
       />
 
-      <section className="max-w-4xl mx-auto glass-morphism p-8 md:p-12 space-y-12">
+      <section className="max-w-4xl mx-auto glass-morphism p-8 md:p-12 space-y-16">
+        {/* Detailed Guide */}
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-white">How to Use the JSON to CSV Converter</h2>
-          <p className="text-neutral-400 leading-relaxed">
-            Our JSON to CSV tool is designed for simplicity and speed. Follow these three easy steps to export your data:
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Mastering JSON to CSV Conversion</h2>
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+            JSON (JavaScript Object Notation) is the language of the modern web, but for data scientists, accountants, and marketing analysts, <strong>CSV (Comma Separated Values)</strong> is the king of analysis. Our industrial-grade converter bridges this gap with zero-latency, browser-based processing.
           </p>
-          <ul className="space-y-4 list-decimal list-inside text-neutral-300">
-            <li><span className="font-semibold text-white">Paste your JSON:</span> Copy your JSON data and paste it into the input field above.</li>
-            <li><span className="font-semibold text-white">Validation:</span> The tool automatically validates your JSON. If there's an error, it will guide you.</li>
-            <li><span className="font-semibold text-white">Download:</span> Once converted, click "Download .csv" or copy the result to your clipboard.</li>
-          </ul>
-        </div>
-
-        <div className="space-y-8">
-          <h2 className="text-3xl font-bold text-white">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-xl font-semibold text-blue-400">Is my data secure?</h3>
-              <p className="text-neutral-400">
-                Yes, 100%. ToolCorners uses client-side processing. Your JSON data never leaves your computer and is never sent to any server.
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+            <div className="space-y-3">
+              <h4 className="font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                Why Convert JSON to CSV?
+              </h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                CSV files are universally compatible with tools like <strong>Microsoft Excel, Google Sheets, and SQL databases</strong>. Converting nested JSON into a flat table makes it easy to perform calculations, create charts, and run statistical models.
               </p>
             </div>
-            <div className="space-y-2">
-              <h3 className="text-xl font-semibold text-blue-400">What is JSON to CSV used for?</h3>
-              <p className="text-neutral-400">
-                JSON is a great format for data exchange between applications, but CSV is preferred for data analysis in tools like Excel, Google Sheets, or various database importing systems.
+            <div className="space-y-3">
+              <h4 className="font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                Security & Privacy First
+              </h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Unlike other online converters, <strong>ToolCorners never uploads your data</strong> to a server. All processing happens within your browser's sandboxed environment, making it safe for sensitive corporate data and PII.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Features List */}
+        <div className="space-y-8 py-8 border-y border-slate-200 dark:border-slate-800">
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Professional Features</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+              <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Automated Flattening</h5>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Deeply nested JSON objects are automatically flattened into relational CSV columns using dot-notation mapping.</p>
+            </div>
+            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+              <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Large Dataset Support</h5>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Engineered to handle multi-megabyte JSON arrays without crashing your browser or losing precision.</p>
+            </div>
+            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+              <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Smart Schema Detection</h5>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Automatically identifies headers from your JSON keys, even if the objects in your array have inconsistent fields.</p>
+            </div>
+            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+              <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Instant Validation</h5>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Real-time JSON linting catches syntax errors as you type, ensuring a smooth conversion experience.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="space-y-10">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is there a file size limit for JSON to CSV?</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
+                While there is no hard limit, the performance depends on your device's RAM. Most modern computers can handle 50MB+ JSON files with ease. For massive files, we recommend closing other browser tabs.
+              </p>
+            </div>
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Does it support nested objects?</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
+                Yes. Our converter uses a recursive flattening algorithm that transforms nested properties into dot-notated columns (e.g., <code>user.address.zip</code>).
+              </p>
+            </div>
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Can I convert JSON to CSV for free?</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
+                Yes, ToolCorners is completely free to use. There are no registration requirements, no subscription fees, and no hidden watermarks in your exported files.
+              </p>
+            </div>
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is my data sent to the cloud?</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
+                No. One of the core pillars of ToolCorners is privacy. Your data remains strictly local in your browser's memory and is destroyed when you close the tab.
               </p>
             </div>
           </div>

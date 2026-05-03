@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { Upload, FileJson, Copy, Download, Trash2, Zap, Braces } from 'lucide-react';
 
 interface ConverterInterfaceProps {
   title: string;
@@ -9,6 +10,7 @@ interface ConverterInterfaceProps {
   outputExtension: string;
   sampleJson: any;
   mimeType?: string;
+  customOutput?: (input: string, error: string | null, fileName: string, setFileName: (val: string) => void) => React.ReactNode;
 }
 
 const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
@@ -18,16 +20,20 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
   outputExtension,
   sampleJson,
   mimeType = 'text/plain',
+  customOutput,
 }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isConverting, setIsConverting] = useState(false);
   const [fileName, setFileName] = useState('toolcorners_export');
+  const [leftWidth, setLeftWidth] = useState(50); // percentage
+  const [isResizing, setIsResizing] = useState(false);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const validateAndConvert = async (value: string) => {
+  const validateAndConvert = useCallback(async (value: string) => {
     if (!value.trim()) {
       setOutput('');
       setError(null);
@@ -51,7 +57,7 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
     } finally {
       setIsConverting(false);
     }
-  };
+  }, [conversionFn, fileName]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = e.target.value;
@@ -68,12 +74,44 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
       const content = event.target?.result as string;
       setInput(content);
       validateAndConvert(content);
-      // Set default filename from uploaded file (without extension)
       const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
       setFileName(`${nameWithoutExt}_converted`);
     };
     reader.readAsText(file);
   };
+
+  const startResizing = (e: React.MouseEvent) => {
+    setIsResizing(true);
+    e.preventDefault();
+  };
+
+  const stopResizing = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  const resize = useCallback((e: MouseEvent) => {
+    if (isResizing && containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const newWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+      if (newWidth > 20 && newWidth < 80) {
+        setLeftWidth(newWidth);
+      }
+    }
+  }, [isResizing]);
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener('mousemove', resize);
+      window.addEventListener('mouseup', stopResizing);
+    } else {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    }
+    return () => {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    };
+  }, [isResizing, resize, stopResizing]);
 
   const handleSampleClick = () => {
     const sampleStr = JSON.stringify(sampleJson, null, 2);
@@ -101,7 +139,6 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
       const parsed = JSON.parse(input);
       const result = await conversionFn(parsed, fileName);
       
-      // If the function handles download internally (like json-as-xlsx), it might return a string message
       if (typeof result === 'string' && result.includes('download triggered')) {
         return;
       }
@@ -121,106 +158,113 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-7xl mx-auto space-y-12 animate-in fade-in duration-700">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold gradient-text tracking-tight leading-tight">
-          {title}
+        <h1 className="text-4xl md:text-5xl font-black tracking-tighter">
+          <span className="gradient-text">{title}</span>
         </h1>
-        <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
+        <p className="text-slate-700 dark:text-slate-400 text-lg max-w-2xl mx-auto font-semibold leading-relaxed">
           {description}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div 
+        ref={containerRef}
+        className="glass-morphism min-h-[600px] flex flex-col lg:flex-row overflow-hidden shadow-2xl"
+      >
         {/* Input Section */}
-        <div className="space-y-4 flex flex-col">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <label className="text-sm font-semibold text-neutral-300">JSON Input</label>
+        <div 
+          style={{ width: typeof window !== 'undefined' && window.innerWidth >= 1024 ? `${leftWidth}%` : '100%' }}
+          className="p-6 flex flex-col border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800"
+        >
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+              <FileJson className="w-3.5 h-3.5" /> Input JSON
+            </span>
+            <div className="flex gap-3">
               <button 
                 onClick={() => fileInputRef.current?.click()}
-                className="text-xs px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded text-neutral-400 hover:text-white transition-all flex items-center gap-2"
+                className="text-[10px] px-3 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 rounded-lg text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 group"
               >
-                <span>📁</span> Upload File
+                <Upload className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" /> Upload JSON File
               </button>
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileUpload} 
-                accept=".json,application/json" 
-                className="hidden" 
-              />
+              <button 
+                onClick={handleSampleClick}
+                className="text-[10px] px-3 py-2 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 rounded-lg text-slate-600 dark:text-slate-400 font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 group"
+              >
+                <Zap className="w-3.5 h-3.5 transition-transform group-hover:scale-110" /> Sample
+              </button>
+              <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept=".json" className="hidden" />
             </div>
-            <button 
-              onClick={handleSampleClick}
-              className="text-xs font-medium text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              Use Sample JSON
-            </button>
           </div>
           <textarea
             value={input}
             onChange={handleInputChange}
-            placeholder="Paste your JSON here or upload a file..."
-            className="input-area flex-grow min-h-[300px]"
+            placeholder="Paste your JSON here..."
+            className="input-area flex-grow min-h-[400px] bg-black/[0.02] dark:bg-black/20 rounded-xl p-4 text-slate-800 dark:text-slate-200"
           />
           {error && (
-            <div className="p-3 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400 text-xs">
-              <span className="font-bold">Error:</span> {error}
+            <div className="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-500 text-xs font-mono">
+              {error}
             </div>
           )}
         </div>
 
+        {/* Resizer */}
+        <div 
+          onMouseDown={startResizing}
+          className="resize-handle"
+        />
+
         {/* Output Section */}
-        <div className="space-y-4 flex flex-col">
-          <div className="flex justify-between items-center h-[24px]">
-            <label className="text-sm font-semibold text-neutral-300">Result Output</label>
-            {isConverting && <div className="text-xs text-blue-400 animate-pulse">Converting...</div>}
-          </div>
-          <pre className="output-area flex-grow min-h-[300px]">
-            {output || <span className="text-neutral-600">Waiting for input...</span>}
-          </pre>
-          
-          <div className="space-y-4">
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-medium text-neutral-500">Download Filename</label>
-              <div className="flex gap-2">
-                <input 
-                  type="text"
-                  value={fileName}
-                  onChange={(e) => setFileName(e.target.value)}
-                  placeholder="Enter filename..."
-                  className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none flex-grow"
-                />
-                <div className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-neutral-500 flex items-center">
-                  .{outputExtension}
+        <div 
+          style={{ width: typeof window !== 'undefined' && window.innerWidth >= 1024 ? `${100 - leftWidth}%` : '100%' }}
+          className="p-6 flex flex-col bg-slate-50/30 dark:bg-white/[0.01]"
+        >
+          {customOutput ? (
+            customOutput(input, error, fileName, setFileName)
+          ) : (
+            <>
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 flex items-center gap-2">
+                  <Braces className="w-3.5 h-3.5" /> Output Result
+                </span>
+                {isConverting && <div className="text-[10px] font-bold text-indigo-500 animate-pulse">Converting...</div>}
+              </div>
+              <pre className="output-area flex-grow min-h-[400px] bg-white dark:bg-black/30 border border-slate-200 dark:border-slate-800 rounded-xl p-4 text-indigo-600 dark:text-indigo-400">
+                {output || <span className="text-slate-400 italic">Result will appear here...</span>}
+              </pre>
+              
+              <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800 space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Filename</label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text"
+                      value={fileName}
+                      onChange={(e) => setFileName(e.target.value)}
+                      className="bg-white dark:bg-black/40 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-sm w-full focus:border-indigo-500/50 outline-none transition-all"
+                    />
+                    <div className="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-xs font-mono flex items-center text-slate-500">
+                      .{outputExtension}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3">
+                  <button onClick={handleCopy} disabled={!output} className="btn-secondary flex-1 py-2.5 text-xs flex items-center justify-center gap-2">
+                    <Copy className="w-4 h-4" /> Copy
+                  </button>
+                  <button onClick={handleDownload} disabled={!input || !!error} className="btn-primary flex-1 py-2.5 text-xs flex items-center justify-center gap-2">
+                    <Download className="w-4 h-4" /> Download
+                  </button>
+                  <button onClick={handleClear} className="px-4 bg-slate-100 dark:bg-slate-800 hover:bg-rose-500/10 text-slate-500 hover:text-rose-500 rounded-lg transition-all border border-transparent hover:border-rose-500/20 cursor-pointer">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <button 
-                onClick={handleCopy}
-                disabled={!output || output === '[File ready for download]'}
-                className="btn-secondary flex-1 disabled:opacity-50 disabled:cursor-not-allowed text-xs"
-              >
-                Copy
-              </button>
-              <button 
-                onClick={handleDownload}
-                disabled={!input || !!error}
-                className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed text-xs"
-              >
-                Download File
-              </button>
-              <button 
-                onClick={handleClear}
-                className="btn-secondary flex-none px-4 text-xs"
-              >
-                Clear
-              </button>
-            </div>
-          </div>
+            </>
+          )}
         </div>
       </div>
     </div>
