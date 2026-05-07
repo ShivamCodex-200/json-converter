@@ -13,11 +13,11 @@ const JsonToXmlClient = dynamic(() => import('./JsonToXmlClient'), {
 });
 
 export const metadata: Metadata = {
-  title: 'JSON to XML Converter - Clean & Validated Output | ToolCorners',
+  title: 'JSON to XML Converter - Clean & Validated Output | JSON Master',
   description: 'Transform JSON objects into well-formatted XML tags. Perfect for API integration and legacy system compatibility. No data collection, just pure performance.',
   keywords: ['JSON to XML', 'convert JSON to XML', 'JSON to XML mapper', 'SOAP API data', 'online XML generator', 'online json converter', 'free json converter', 'online json to xml converter'],
   openGraph: {
-    title: 'JSON to XML Converter - Clean & Validated Output | ToolCorners',
+    title: 'JSON to XML Converter - Clean & Validated Output | JSON Master',
     description: 'Map your modern JSON objects to valid, well-structured XML tags instantly and securely.',
     url: 'https://json.toolcorners.com/json-to-xml',
   },

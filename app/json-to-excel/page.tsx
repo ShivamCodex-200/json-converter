@@ -13,11 +13,11 @@ const JsonToExcelClient = dynamic(() => import('./JsonToExcelClient'), {
 });
 
 export const metadata: Metadata = {
-  title: 'JSON to Excel Converter: Download .xlsx Files Online | ToolCorners',
+  title: 'JSON to Excel Converter: Download .xlsx Files Online | JSON Master',
   description: 'Turn complex JSON data into professional Excel spreadsheets instantly. Supports nested objects and arrays. Secure, private, and 100% browser-based.',
   keywords: ['JSON to Excel', 'convert JSON to XLSX', 'JSON to spreadsheet', 'online JSON to Excel', 'secure data export', 'online json converter', 'free json converter', 'online json to excel converter'],
   openGraph: {
-    title: 'JSON to Excel Converter: Download .xlsx Files Online | ToolCorners',
+    title: 'JSON to Excel Converter: Download .xlsx Files Online | JSON Master',
     description: 'Transform complex JSON datasets into native Excel spreadsheets instantly and securely.',
     url: 'https://json.toolcorners.com/json-to-excel',
   },

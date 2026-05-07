@@ -13,11 +13,11 @@ const JsonToTableClient = dynamic(() => import('./JsonToTableClient'), {
 });
 
 export const metadata: Metadata = {
-  title: 'JSON to Table Viewer | Interactive JSON Grid Online | ToolCorners',
+  title: 'JSON to Table Viewer | Interactive JSON Grid Online | JSON Master',
   description: 'Visualize your JSON data as an interactive table. Flatten nested JSON into a readable grid, search, sort, and export to multiple formats securely.',
   keywords: ['JSON to table', 'JSON viewer', 'JSON grid', 'visualize JSON', 'interactive data table', 'online json converter', 'free json converter', 'online json to table converter'],
   openGraph: {
-    title: 'JSON to Table Viewer | Interactive JSON Grid Online | ToolCorners',
+    title: 'JSON to Table Viewer | Interactive JSON Grid Online | JSON Master',
     description: 'Transform raw JSON into a high-performance interactive grid for easy analysis.',
     url: 'https://json.toolcorners.com/json-to-table',
   },

@@ -156,32 +156,37 @@ export default function HomePage() {
         <AccordionFAQ 
           items={[
             {
-              question: "Is ToolCorners really free?",
-              answer: "Yes, 100%. Our mission is to provide high-quality developer tools without the clutter of ads or subscription walls. We believe in open, accessible utilities for the global developer community.",
+              question: "Is JSON Master really free?",
+              answer: "Yes, 100%. Our mission is to provide high-performance developer utilities without the friction of subscriptions, accounts, or 'pro' versions.",
               icon: <Zap className="w-4 h-4" />
             },
             {
-              question: "Is my data safe here?",
-              answer: "Your data never leaves your browser. We don't have a backend that stores your JSON. The conversion logic runs locally on your device, making it one of the safest tools available online for handling sensitive information.",
+              question: "Is it safe to use with corporate data?",
+              answer: "Absolutely. JSON Master is designed with a zero-server-upload architecture. Your data is processed entirely within your browser's sandbox and is never transmitted to our infrastructure.",
               icon: <ShieldCheck className="w-4 h-4" />
             },
             {
-              question: "Is it safe for company or enterprise data?",
-              answer: "Absolutely. Since no data is uploaded to any server, it complies with most corporate security policies. Your infrastructure secrets, API keys, and customer data stay strictly on your local machine.",
-              icon: <Lock className="w-4 h-4" />
-            },
-            {
-              question: "Can I use ToolCorners offline?",
-              answer: "Yes! ToolCorners is a Progressive Web App (PWA). Once you've visited the site, you can continue to use the conversion tools even without an active internet connection.",
+              question: "Can I use it offline?",
+              answer: "Yes. Once the app is loaded, you can disconnect from the internet and continue using all conversion utilities. It is also available as an installable PWA (Progressive Web App).",
               icon: <Globe className="w-4 h-4" />
             },
             {
-              question: "Do I need to install anything?",
-              answer: "No installation required. ToolCorners works directly in any modern browser (Chrome, Firefox, Safari, Edge) across Windows, macOS, and Linux.",
-              icon: <Zap className="w-4 h-4" />
+              question: "How do you handle large JSON files?",
+              answer: "We use high-efficiency streaming parsers and recursive algorithms that can handle files upwards of 50MB-100MB depending on your device's memory.",
+              icon: <Cpu className="w-4 h-4" />
             }
           ]}
         />
+      </section>
+
+      <section className="text-center py-12 px-6 border-t border-slate-100 dark:border-slate-900">
+        <h2 className="text-sm font-bold text-slate-400 uppercase tracking-[0.3em] mb-6">Built for Professionals</h2>
+        <div className="flex flex-wrap justify-center gap-10 opacity-30 grayscale contrast-125">
+          <div className="flex items-center gap-2 font-black text-xl tracking-tighter italic">LEGACY</div>
+          <div className="flex items-center gap-2 font-black text-xl tracking-tighter italic">ENTERPRISE</div>
+          <div className="flex items-center gap-2 font-black text-xl tracking-tighter italic">DEVOPS</div>
+          <div className="flex items-center gap-2 font-black text-xl tracking-tighter italic">COMPLIANT</div>
+        </div>
       </section>
     </div>
   );

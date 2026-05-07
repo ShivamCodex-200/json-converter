@@ -10,21 +10,21 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://json.toolcorners.com'),
-  title: "JSON Utilities: Free Online Converters & Tools | ToolCorners",
-  description: "Convert JSON to CSV, Excel, XML, YAML, and more instantly. 100% client-side processing means your data never leaves your browser. Fast, secure, and developer-friendly.",
-  keywords: ["JSON converter", "JSON to CSV", "JSON to Excel", "JSON to XML", "JSON to YAML", "Developer Tools", "Secure JSON Conversion", "online json converter", "free json converter", "online json to etc converter"],
-  authors: [{ name: "ToolCorners" }],
+  title: "JSON Master: Free Online Converters & Utilities",
+  description: "Advanced JSON toolkit to convert JSON to CSV, Excel, XML, YAML, and more. 100% secure, browser-side processing for professional developers.",
+  keywords: ["JSON Master", "JSON converter", "JSON to CSV", "JSON to Excel", "JSON to XML", "JSON to YAML", "Developer Tools", "Secure JSON Conversion", "online json converter", "free json converter", "online json to etc converter"],
+  authors: [{ name: "JSON Master" }],
   openGraph: {
-    title: "JSON Utilities: Free Online Converters & Tools | ToolCorners",
+    title: "JSON Master: Free Online Converters & Utilities",
     description: "Secure, client-side JSON conversion tools for professionals. Fast, secure, and developer-friendly.",
     url: "https://json.toolcorners.com",
-    siteName: "json.toolcorners.com",
+    siteName: "JSON Master",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "JSON Utilities: Free Online Converters & Tools | ToolCorners",
+    title: "JSON Master: Free Online Converters & Utilities",
     description: "Secure, client-side JSON conversion tools for professionals. Fast, secure, and developer-friendly.",
   },
   icons: {
@@ -50,7 +50,7 @@ export default function RootLayout({
                   <div className="w-10 h-10 flex items-center justify-center overflow-hidden">
                     <Image 
                       src="/logo.webp" 
-                      alt="ToolCorners Logo" 
+                      alt="JSON Master Logo" 
                       width={40} 
                       height={40} 
                       className="object-contain group-hover:scale-110 transition-transform duration-300"
@@ -58,7 +58,7 @@ export default function RootLayout({
                     />
                   </div>
                   <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
-                    Tool<span className="text-indigo-500">Corners</span>
+                    JSON<span className="text-indigo-500">Master</span>
                   </span>
                 </Link>
               </div>
@@ -92,23 +92,23 @@ export default function RootLayout({
                   <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
                     <Image 
                       src="/logo.webp" 
-                      alt="ToolCorners Logo" 
+                      alt="JSON Master Logo" 
                       width={32} 
                       height={32} 
                       className="object-contain"
                     />
                   </div>
                   <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50">
-                    ToolCorners
+                    JSON Master
                   </span>
                 </Link>
                 <p className="text-slate-700 dark:text-slate-400 text-sm leading-relaxed max-w-xs">
-                  Industrial-grade developer utilities. Built for speed, privacy, and precision. No data ever leaves your device.
+                  Industrial-grade JSON utilities. Built for speed, privacy, and precision. No data ever leaves your device.
                 </p>
               </div>
 
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-slate-500 mb-4">Tools</h4>
+                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-slate-500 mb-4">Utilities</h4>
                 <ul className="text-slate-700 dark:text-slate-400 text-sm space-y-2 font-medium">
                   <li><Link href="/json-to-csv" className="hover:text-indigo-500 transition-colors">JSON to CSV Converter</Link></li>
                   <li><Link href="/json-to-excel" className="hover:text-indigo-500 transition-colors">JSON to Excel Converter</Link></li>
@@ -120,17 +120,16 @@ export default function RootLayout({
               </div>
 
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-slate-500 mb-4">Company</h4>
+                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-slate-500 mb-4">Legal</h4>
                 <ul className="text-slate-700 dark:text-slate-400 text-sm space-y-2 font-medium">
                   <li><Link href="/privacy-policy" className="hover:text-indigo-500 transition-colors">Privacy Policy</Link></li>
                   <li><Link href="/terms" className="hover:text-indigo-500 transition-colors">Terms of Service</Link></li>
-                  <li><Link href="#" className="hover:text-indigo-500 transition-colors">About Us</Link></li>
                 </ul>
               </div>
             </div>
             <div className="container mx-auto px-6 mt-12 pt-8 border-t border-slate-100 dark:border-slate-900 text-center">
               <p className="text-slate-600 dark:text-slate-600 text-[11px] font-medium">
-                © {new Date().getFullYear()} ToolCorners. Engineered for privacy.
+                © {new Date().getFullYear()} JSON Master. Engineered for privacy.
               </p>
             </div>
           </footer>

@@ -13,11 +13,11 @@ const JsonToCsvClient = dynamic(() => import('./JsonToCsvClient'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Convert JSON to CSV Online - Free & Secure | ToolCorners',
+  title: 'Convert JSON to CSV Online - Free & Secure | JSON Master',
   description: 'Fastest way to convert JSON to CSV for Excel or Google Sheets. No file uploads required—data is processed locally for maximum privacy. Download your CSV in one click.',
   keywords: ['JSON to CSV', 'convert JSON to CSV', 'online JSON converter', 'JSON to CSV tool', 'secure JSON conversion', 'free json converter', 'online json to csv converter'],
   openGraph: {
-    title: 'Convert JSON to CSV Online - Free & Secure | ToolCorners',
+    title: 'Convert JSON to CSV Online - Free & Secure | JSON Master',
     description: 'Transform your JSON data into clean, formatted CSV files instantly and securely.',
     url: 'https://json.toolcorners.com/json-to-csv',
   },

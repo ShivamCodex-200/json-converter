@@ -13,11 +13,11 @@ const JsonToStringClient = dynamic(() => import('./JsonToStringClient'), {
 });
 
 export const metadata: Metadata = {
-  title: 'JSON to String Converter | Minify & Escape JSON Online | ToolCorners',
+  title: 'JSON to String Converter | Minify & Escape JSON Online | JSON Master',
   description: 'Convert JSON to a single-line string or escaped string. Professional JSON minifier and stringifier for API payloads and compact storage.',
   keywords: ['JSON to string', 'JSON minifier', 'JSON stringify', 'minify JSON online', 'JSON escaping tool', 'online json converter', 'free json converter', 'online json to string converter'],
   openGraph: {
-    title: 'JSON to String Converter | Minify & Escape JSON Online | ToolCorners',
+    title: 'JSON to String Converter | Minify & Escape JSON Online | JSON Master',
     description: 'Compress and optimize your JSON payloads instantly for production use.',
     url: 'https://json.toolcorners.com/json-to-string',
   },

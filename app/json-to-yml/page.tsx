@@ -13,11 +13,11 @@ const JsonToYamlClient = dynamic(() => import('./JsonToYamlClient'), {
 });
 
 export const metadata: Metadata = {
-  title: 'JSON to YAML Converter | Clean YAML Formatting Online | ToolCorners',
+  title: 'JSON to YAML Converter | Clean YAML Formatting Online | JSON Master',
   description: 'Convert JSON to YAML (YML) for Kubernetes, Docker, and CI/CD configs. High-performance, secure, and beautiful YAML output for your JSON objects.',
   keywords: ['JSON to YAML', 'JSON to YML', 'Kubernetes config generator', 'online YAML converter', 'DevOps tools', 'online json converter', 'free json converter', 'online json to yaml converter'],
   openGraph: {
-    title: 'JSON to YAML Converter | Clean YAML Formatting Online | ToolCorners',
+    title: 'JSON to YAML Converter | Clean YAML Formatting Online | JSON Master',
     description: 'Transform your JSON configuration files into beautifully indented YAML instantly and securely.',
     url: 'https://json.toolcorners.com/json-to-yml',
   },
