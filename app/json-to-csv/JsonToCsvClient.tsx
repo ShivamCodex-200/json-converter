@@ -2,6 +2,8 @@
 
 import ConverterInterface from '@/components/ConverterInterface';
 import { Parser } from '@json2csv/plainjs';
+import AccordionFAQ from '@/components/AccordionFAQ';
+import { ShieldCheck, Zap, Braces } from 'lucide-react';
 
 export default function JsonToCsvClient() {
   const sampleJson = [
@@ -64,19 +66,19 @@ export default function JsonToCsvClient() {
         <div className="space-y-8 py-8 border-y border-slate-200 dark:border-slate-800">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Professional Features</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Automated Flattening</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Deeply nested JSON objects are automatically flattened into relational CSV columns using dot-notation mapping.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Large Dataset Support</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Engineered to handle multi-megabyte JSON arrays without crashing your browser or losing precision.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Smart Schema Detection</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Automatically identifies headers from your JSON keys, even if the objects in your array have inconsistent fields.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Instant Validation</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Real-time JSON linting catches syntax errors as you type, ensuring a smooth conversion experience.</p>
             </div>
@@ -84,35 +86,30 @@ export default function JsonToCsvClient() {
         </div>
 
         {/* FAQ Section */}
-        <div className="space-y-10">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is there a file size limit for JSON to CSV?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                While there is no hard limit, the performance depends on your device's RAM. Most modern computers can handle 50MB+ JSON files with ease. For massive files, we recommend closing other browser tabs.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Does it support nested objects?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Yes. Our converter uses a recursive flattening algorithm that transforms nested properties into dot-notated columns (e.g., <code>user.address.zip</code>).
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Can I convert JSON to CSV for free?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Yes, ToolCorners is completely free to use. There are no registration requirements, no subscription fees, and no hidden watermarks in your exported files.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is my data sent to the cloud?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                No. One of the core pillars of ToolCorners is privacy. Your data remains strictly local in your browser's memory and is destroyed when you close the tab.
-              </p>
-            </div>
-          </div>
-        </div>
+        <AccordionFAQ 
+          items={[
+            {
+              question: "Is there a file size limit for JSON to CSV?",
+              answer: "While there is no hard limit, the performance depends on your device's RAM. Most modern computers can handle 50MB+ JSON files with ease. For massive files, we recommend closing other browser tabs.",
+              icon: <Zap className="w-4 h-4" />
+            },
+            {
+              question: "Does it support nested objects?",
+              answer: "Yes. Our converter uses a recursive flattening algorithm that transforms nested properties into dot-notated columns (e.g., user.address.zip).",
+              icon: <Braces className="w-4 h-4" />
+            },
+            {
+              question: "Can I convert JSON to CSV for free?",
+              answer: "Yes, ToolCorners is completely free to use. There are no registration requirements, no subscription fees, and no hidden watermarks in your exported files.",
+              icon: <Zap className="w-4 h-4" />
+            },
+            {
+              question: "Is my data sent to the cloud?",
+              answer: "No. One of the core pillars of ToolCorners is privacy. Your data remains strictly local in your browser's memory and is destroyed when you close the tab.",
+              icon: <ShieldCheck className="w-4 h-4" />
+            }
+          ]}
+        />
       </section>
     </div>
   );

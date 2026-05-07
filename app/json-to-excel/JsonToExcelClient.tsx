@@ -2,6 +2,8 @@
 
 import ConverterInterface from '@/components/ConverterInterface';
 import xlsx from 'json-as-xlsx';
+import AccordionFAQ from '@/components/AccordionFAQ';
+import { ShieldCheck, Zap, Braces, Globe, FileSpreadsheet } from 'lucide-react';
 
 export default function JsonToExcelClient() {
   const sampleJson = [
@@ -79,19 +81,19 @@ export default function JsonToExcelClient() {
         <div className="space-y-8 py-8 border-y border-slate-200 dark:border-slate-800">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Common Use Cases</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">API Response Analysis</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Fetch data from a REST API and quickly dump it into Excel for sorting, filtering, and deep analysis.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Database Migration</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Convert NoSQL exports (like MongoDB JSON) into a tabular format for traditional database imports.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Financial Reporting</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Transform raw transaction logs into readable spreadsheets for accounting and audit purposes.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Inventory Management</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Manage large product lists by converting JSON exports from e-commerce platforms into Excel sheets.</p>
             </div>
@@ -99,35 +101,30 @@ export default function JsonToExcelClient() {
         </div>
 
         {/* FAQ Section */}
-        <div className="space-y-10">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Does it support multiple sheets?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Currently, our online tool converts your JSON into a single primary sheet named "Data" for maximum compatibility and simplicity.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Will I lose data in the conversion?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                No. Our mapping engine ensures that every key in your JSON object becomes a unique column in Excel, preserving all your data points.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Can I use this for offline work?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Yes! Once the page is loaded, the conversion logic runs entirely in your browser. You can even disconnect your internet and the tool will continue to function.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is there any charge for large files?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Never. ToolCorners is a community-first platform. Whether you're converting 10 rows or 10,000, our service remains 100% free.
-              </p>
-            </div>
-          </div>
-        </div>
+        <AccordionFAQ 
+          items={[
+            {
+              question: "Does it support multiple sheets?",
+              answer: "Currently, our online tool converts your JSON into a single primary sheet named 'Data' for maximum compatibility and simplicity.",
+              icon: <FileSpreadsheet className="w-4 h-4" />
+            },
+            {
+              question: "Will I lose data in the conversion?",
+              answer: "No. Our mapping engine ensures that every key in your JSON object becomes a unique column in Excel, preserving all your data points.",
+              icon: <ShieldCheck className="w-4 h-4" />
+            },
+            {
+              question: "Can I use this for offline work?",
+              answer: "Yes! Once the page is loaded, the conversion logic runs entirely in your browser. You can even disconnect your internet and the tool will continue to function.",
+              icon: <Globe className="w-4 h-4" />
+            },
+            {
+              question: "Is there any charge for large files?",
+              answer: "Never. ToolCorners is a community-first platform. Whether you're converting 10 rows or 10,000, our service remains 100% free.",
+              icon: <Zap className="w-4 h-4" />
+            }
+          ]}
+        />
       </section>
     </div>
   );

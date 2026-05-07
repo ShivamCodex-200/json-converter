@@ -59,10 +59,19 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
     }
   }, [conversionFn, fileName]);
 
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const val = e.target.value;
     setInput(val);
-    validateAndConvert(val);
+    
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      validateAndConvert(val);
+    }, 300);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -201,7 +210,7 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
             value={input}
             onChange={handleInputChange}
             placeholder="Paste your JSON here..."
-            className="input-area flex-grow min-h-[400px] bg-black/[0.02] dark:bg-black/20 rounded-xl p-4 text-slate-800 dark:text-slate-200"
+            className="input-area grow min-h-[400px] bg-black/2 dark:bg-black/20 rounded-xl p-4 text-slate-800 dark:text-slate-200"
           />
           {error && (
             <div className="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-500 text-xs font-mono">
@@ -219,7 +228,7 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
         {/* Output Section */}
         <div 
           style={{ width: typeof window !== 'undefined' && window.innerWidth >= 1024 ? `${100 - leftWidth}%` : '100%' }}
-          className="p-6 flex flex-col bg-slate-50/30 dark:bg-white/[0.01]"
+          className="p-6 flex flex-col bg-slate-50/30 dark:bg-white/1"
         >
           {customOutput ? (
             customOutput(input, error, fileName, setFileName)
@@ -231,7 +240,7 @@ const ConverterInterface: React.FC<ConverterInterfaceProps> = ({
                 </span>
                 {isConverting && <div className="text-[10px] font-bold text-indigo-500 animate-pulse">Converting...</div>}
               </div>
-              <pre className="output-area flex-grow min-h-[400px] bg-white dark:bg-black/30 border border-slate-200 dark:border-slate-800 rounded-xl p-4 text-indigo-600 dark:text-indigo-400">
+              <pre className="output-area grow min-h-[400px] bg-white dark:bg-black/30 border border-slate-200 dark:border-slate-800 rounded-xl p-4 text-indigo-600 dark:text-indigo-400">
                 {output || <span className="text-slate-400 italic">Result will appear here...</span>}
               </pre>
               

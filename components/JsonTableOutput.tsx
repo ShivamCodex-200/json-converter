@@ -1,11 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Parser } from '@json2csv/plainjs';
-import xlsx from 'json-as-xlsx';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import { Table as TableIcon, Code, FileText, FileSpreadsheet, FileOutput, Copy, CheckCircle2 } from 'lucide-react';
+import { Table as TableIcon, Code, FileText, FileSpreadsheet, FileOutput, Copy, CheckCircle2, RefreshCw } from 'lucide-react';
 
 interface JsonTableOutputProps {
   input: string;
@@ -17,6 +13,7 @@ interface JsonTableOutputProps {
 const JsonTableOutput: React.FC<JsonTableOutputProps> = ({ input, error, fileName, setFileName }) => {
   const [activeTab, setActiveTab] = useState<'table' | 'html'>('table');
   const [copied, setCopied] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
 
   const tableData = useMemo(() => {
     if (error || !input.trim()) return null;
@@ -39,51 +36,77 @@ const JsonTableOutput: React.FC<JsonTableOutputProps> = ({ input, error, fileNam
     return `<table border="1">\n  ${headerHtml}\n  ${rowsHtml}\n</table>`;
   }, [tableData]);
 
-  const downloadCsv = () => {
+  const downloadCsv = async () => {
     if (!tableData) return;
-    const parser = new Parser();
-    const csv = parser.parse(tableData.rows);
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.body.appendChild(document.createElement('a'));
-    a.href = url;
-    a.download = `${fileName}.csv`;
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setIsExporting(true);
+    try {
+      const { Parser } = await import('@json2csv/plainjs');
+      const parser = new Parser();
+      const csv = parser.parse(tableData.rows);
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.body.appendChild(document.createElement('a'));
+      a.href = url;
+      a.download = `${fileName}.csv`;
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('CSV Export Error:', err);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
-  const downloadExcel = () => {
+  const downloadExcel = async () => {
     if (!tableData) return;
-    const data = [
-      {
-        sheet: 'Sheet 1',
-        columns: tableData.headers.map(h => ({ label: h, value: h })),
-        content: tableData.rows
-      }
-    ];
-    const settings = {
-      fileName: fileName,
-      writeMode: 'writeFile',
-    };
-    xlsx(data, settings);
+    setIsExporting(true);
+    try {
+      const xlsx = (await import('json-as-xlsx')).default;
+      const data = [
+        {
+          sheet: 'Sheet 1',
+          columns: tableData.headers.map(h => ({ label: h, value: h })),
+          content: tableData.rows
+        }
+      ];
+      const settings = {
+        fileName: fileName,
+        writeMode: 'writeFile',
+      };
+      xlsx(data, settings);
+    } catch (err) {
+      console.error('Excel Export Error:', err);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
-  const downloadPdf = () => {
+  const downloadPdf = async () => {
     if (!tableData) return;
-    const doc = new jsPDF();
-    const body = tableData.rows.map(row => tableData.headers.map(h => row[h] !== undefined ? String(row[h]) : ''));
-    
-    autoTable(doc, {
-      head: [tableData.headers],
-      body: body,
-      theme: 'grid',
-      styles: { fontSize: 8, font: 'helvetica' },
-      headStyles: { fillColor: [79, 70, 229], textColor: [255, 255, 255], fontStyle: 'bold' },
-      alternateRowStyles: { fillColor: [249, 250, 251] }
-    });
-    
-    doc.save(`${fileName}.pdf`);
+    setIsExporting(true);
+    try {
+      const jsPDF = (await import('jspdf')).default;
+      const autoTable = (await import('jspdf-autotable')).default;
+      
+      const doc = new jsPDF();
+      const body = tableData.rows.map(row => tableData.headers.map(h => row[h] !== undefined ? String(row[h]) : ''));
+      
+      autoTable(doc, {
+        head: [tableData.headers],
+        body: body,
+        theme: 'grid',
+        styles: { fontSize: 8, font: 'helvetica' },
+        headStyles: { fillColor: [79, 70, 229], textColor: [255, 255, 255], fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [249, 250, 251] }
+      });
+      
+      doc.save(`${fileName}.pdf`);
+    } catch (err) {
+      console.error('PDF Export Error:', err);
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   if (error) return (
@@ -140,7 +163,7 @@ const JsonTableOutput: React.FC<JsonTableOutputProps> = ({ input, error, fileNam
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {tableData.rows.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-white/[0.02] transition-colors">
+                  <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-white/2 transition-colors">
                     {tableData.headers.map((header) => (
                       <td key={header} className="px-6 py-4 text-slate-600 dark:text-slate-400 font-medium">
                         {row[header] !== undefined ? String(row[header]) : <span className="opacity-20">—</span>}
@@ -169,7 +192,7 @@ const JsonTableOutput: React.FC<JsonTableOutputProps> = ({ input, error, fileNam
             value={fileName}
             onChange={(e) => setFileName(e.target.value)}
             placeholder="Filename..."
-            className="bg-white dark:bg-black/40 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-indigo-500/50 outline-none flex-grow transition-all shadow-sm"
+            className="bg-white dark:bg-black/40 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-indigo-500/50 outline-none grow transition-all shadow-sm"
           />
           <div className="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase flex items-center tracking-widest">
             Multi-Format
@@ -185,6 +208,7 @@ const JsonTableOutput: React.FC<JsonTableOutputProps> = ({ input, error, fileNam
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           }}
+          disabled={isExporting}
           className="btn-secondary py-3.5 text-xs flex items-center justify-center gap-2"
         >
           {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
@@ -192,21 +216,27 @@ const JsonTableOutput: React.FC<JsonTableOutputProps> = ({ input, error, fileNam
         </button>
         <button
           onClick={downloadCsv}
-          className="btn-primary py-3.5 text-xs flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 border-emerald-400/20 shadow-emerald-500/20"
+          disabled={isExporting}
+          className="btn-primary py-3.5 text-xs flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 border-emerald-400/20 shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <FileSpreadsheet className="w-4 h-4" /> Download CSV
+          {isExporting ? <RefreshCw className="w-4 h-4 animate-spin" /> : <FileSpreadsheet className="w-4 h-4" />}
+          {isExporting ? 'Processing...' : 'Download CSV'}
         </button>
         <button
           onClick={downloadExcel}
-          className="btn-primary py-3.5 text-xs flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 border-blue-400/20 shadow-blue-500/20"
+          disabled={isExporting}
+          className="btn-primary py-3.5 text-xs flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 border-blue-400/20 shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <FileOutput className="w-4 h-4" /> Download Excel
+          {isExporting ? <RefreshCw className="w-4 h-4 animate-spin" /> : <FileOutput className="w-4 h-4" />}
+          {isExporting ? 'Processing...' : 'Download Excel'}
         </button>
         <button
           onClick={downloadPdf}
-          className="btn-primary py-3.5 text-xs flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-500 border-rose-400/20 shadow-rose-500/20"
+          disabled={isExporting}
+          className="btn-primary py-3.5 text-xs flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-500 border-rose-400/20 shadow-rose-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <FileText className="w-4 h-4" /> Download PDF
+          {isExporting ? <RefreshCw className="w-4 h-4 animate-spin" /> : <FileText className="w-4 h-4" />}
+          {isExporting ? 'Processing...' : 'Download PDF'}
         </button>
       </div>
     </div>

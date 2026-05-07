@@ -2,6 +2,8 @@
 
 import ConverterInterface from '@/components/ConverterInterface';
 import { toXML } from 'jstoxml';
+import AccordionFAQ from '@/components/AccordionFAQ';
+import { ShieldCheck, Zap, Braces, Smartphone, Layers } from 'lucide-react';
 
 export default function JsonToXmlClient() {
   const sampleJson = {
@@ -65,19 +67,19 @@ export default function JsonToXmlClient() {
         <div className="space-y-8 py-8 border-y border-slate-200 dark:border-slate-800">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Professional Features</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Custom Root Tags</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Automatically wraps your JSON data in a root element, ensuring the output is a valid XML document.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Pretty Printing</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Generated XML is beautifully indented for human readability, making debugging and configuration easier.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Attribute Mapping</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Handles nested JSON objects by converting them into nested XML elements while preserving hierarchy.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Encoding Support</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Uses standard UTF-8 encoding declarations to ensure cross-platform compatibility for your XML files.</p>
             </div>
@@ -85,35 +87,30 @@ export default function JsonToXmlClient() {
         </div>
 
         {/* FAQ Section */}
-        <div className="space-y-10">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Does it support XML attributes?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Currently, the tool maps JSON keys to XML elements. For attribute-specific mapping, we recommend structuring your JSON properties as direct children.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Can I use the output in Android development?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Absolutely! Our XML output is standard-compliant and can be used for Android layout files, string resources, or manifest configurations.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is there a limit on tag nesting?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                There is no hard limit. Our recursive engine can handle deeply nested JSON objects, converting each level into a corresponding XML parent-child relationship.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is my XML stored on the server?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                No. Like all ToolCorners utilities, the conversion happens entirely within your browser. Your data is private and never touches our infrastructure.
-              </p>
-            </div>
-          </div>
-        </div>
+        <AccordionFAQ 
+          items={[
+            {
+              question: "Does it support XML attributes?",
+              answer: "Currently, the tool maps JSON keys to XML elements. For attribute-specific mapping, we recommend structuring your JSON properties as direct children or using a standardized mapping convention.",
+              icon: <Layers className="w-4 h-4" />
+            },
+            {
+              question: "Can I use the output in Android development?",
+              answer: "Absolutely! Our XML output is standard-compliant and can be used for Android layout files, string resources, or manifest configurations.",
+              icon: <Smartphone className="w-4 h-4" />
+            },
+            {
+              question: "Is there a limit on tag nesting?",
+              answer: "There is no hard limit. Our recursive engine can handle deeply nested JSON objects, converting each level into a corresponding XML parent-child relationship.",
+              icon: <Braces className="w-4 h-4" />
+            },
+            {
+              question: "Is my XML stored on the server?",
+              answer: "No. Like all ToolCorners utilities, the conversion happens entirely within your browser. Your data is private and never touches our infrastructure.",
+              icon: <ShieldCheck className="w-4 h-4" />
+            }
+          ]}
+        />
       </section>
     </div>
   );

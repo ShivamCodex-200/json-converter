@@ -2,6 +2,8 @@
 
 import ConverterInterface from '@/components/ConverterInterface';
 import yaml from 'json-to-pretty-yaml';
+import AccordionFAQ from '@/components/AccordionFAQ';
+import { ShieldCheck, Zap, Braces, Terminal, FileText } from 'lucide-react';
 
 export default function JsonToYamlClient() {
   const sampleJson = {
@@ -66,19 +68,19 @@ export default function JsonToYamlClient() {
         <div className="space-y-8 py-8 border-y border-slate-200 dark:border-slate-800">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Professional Features</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Block Style Output</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Generates clean block-style YAML, which is the most widely supported and readable format for configuration files.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Preserved Logic</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Our engine maintains the logical hierarchy of your JSON data, ensuring arrays and nested objects are mapped correctly.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Instant Preview</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">As you modify your JSON on the left, the YAML preview updates in real-time, allowing for rapid iterative development.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">No External Calls</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">All conversion logic is executed on your local machine. Your infrastructure secrets and API keys never touch our servers.</p>
             </div>
@@ -86,35 +88,30 @@ export default function JsonToYamlClient() {
         </div>
 
         {/* FAQ Section */}
-        <div className="space-y-10">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is YAML better than JSON?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                For configuration, yes. YAML supports comments and is more visually concise, making it the preferred choice for tools like Kubernetes and Ansible.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Does it support multiline strings?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Yes. Our converter correctly handles multiline strings and special characters, escaping them as necessary for valid YAML output.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Can I convert YAML back to JSON?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                While this tool is focused on JSON to YAML, we are constantly expanding ToolCorners to include more bidirectional conversion utilities.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Why is indentation important in YAML?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Unlike JSON which uses braces, YAML uses whitespace/indentation to define structure. Our tool ensures your indentation is consistent and valid.
-              </p>
-            </div>
-          </div>
-        </div>
+        <AccordionFAQ 
+          items={[
+            {
+              question: "Is YAML better than JSON?",
+              answer: "For configuration, yes. YAML supports comments and is more visually concise, making it the preferred choice for tools like Kubernetes, Docker Compose, and Ansible.",
+              icon: <Terminal className="w-4 h-4" />
+            },
+            {
+              question: "Does it support multiline strings?",
+              answer: "Yes. Our converter correctly handles multiline strings and special characters, preserving formatting for valid YAML output.",
+              icon: <FileText className="w-4 h-4" />
+            },
+            {
+              question: "Why is indentation important in YAML?",
+              answer: "Unlike JSON which uses braces, YAML uses whitespace to define structure. Our tool ensures your indentation is consistent and valid for all target systems.",
+              icon: <Braces className="w-4 h-4" />
+            },
+            {
+              question: "Is my data sent to any server?",
+              answer: "No. ToolCorners is privacy-first. All conversion happens locally in your browser, ensuring your secrets and keys never leave your machine.",
+              icon: <ShieldCheck className="w-4 h-4" />
+            }
+          ]}
+        />
       </section>
     </div>
   );

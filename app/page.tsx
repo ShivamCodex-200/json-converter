@@ -1,15 +1,25 @@
-import Link from 'next/link';
+import { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Link from "next/link";
+import Image from "next/image";
 import { 
-  FileSpreadsheet, 
   FileJson, 
+  FileSpreadsheet, 
   FileCode, 
   FileText, 
   Table, 
   Braces,
   ShieldCheck,
   Zap,
+  Globe,
+  Terminal,
+  Activity,
+  Lock,
   Cpu
-} from 'lucide-react';
+} from "lucide-react";
+import AccordionFAQ from "@/components/AccordionFAQ";
+
+const inter = Inter({ subsets: ["latin"] });
 
 const tools = [
   {
@@ -60,7 +70,7 @@ export default function HomePage() {
   return (
     <div className="space-y-32 animate-in fade-in duration-1000">
       {/* Hero Section */}
-      <section className="text-center space-y-10 py-12 relative">
+      <section className="text-center space-y-10 pt-2 pb-12 relative">
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/5 border border-indigo-500/10 text-indigo-500 text-xs font-bold uppercase tracking-[0.2em] mb-4">
             <Zap className="w-3 h-3" /> Professional Developer Suite
@@ -92,20 +102,20 @@ export default function HomePage() {
           <Link 
             key={tool.href} 
             href={tool.href}
-            className="group glass-morphism p-10 hover:border-indigo-500/50 transition-all duration-500 flex flex-col justify-between"
+            className="group glass-morphism p-6 hover:border-indigo-500/50 transition-all duration-500 flex flex-col justify-between"
           >
             <div>
-              <div className={`w-14 h-14 ${tool.iconBg} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+              <div className={`w-14 h-14 ${tool.iconBg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
                 {tool.icon}
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-3 group-hover:text-indigo-500 transition-colors">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50 mb-2 group-hover:text-indigo-500 transition-colors">
                 {tool.title}
               </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-base leading-relaxed">
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
                 {tool.description}
               </p>
             </div>
-            <div className="mt-10 flex items-center text-xs font-bold text-indigo-500 tracking-widest uppercase opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
+            <div className="mt-6 flex items-center text-[10px] font-bold text-indigo-500 tracking-widest uppercase opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500">
               Launch Utility <span className="ml-2">→</span>
             </div>
           </Link>
@@ -143,27 +153,35 @@ export default function HomePage() {
         </div>
 
         {/* Home FAQ */}
-        <div className="glass-morphism p-12 space-y-12">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="space-y-3">
-              <h4 className="font-bold text-slate-900 dark:text-slate-50">Is ToolCorners really free?</h4>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Yes, 100%. Our mission is to provide high-quality developer tools without the clutter of ads or subscription walls. We believe in open, accessible utilities for the global developer community.</p>
-            </div>
-            <div className="space-y-3">
-              <h4 className="font-bold text-slate-900 dark:text-slate-50">Is my data safe here?</h4>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Your data never leaves your browser. We don't have a backend that stores your JSON. The conversion logic runs locally on your device, making it one of the safest tools available online.</p>
-            </div>
-            <div className="space-y-3">
-              <h4 className="font-bold text-slate-900 dark:text-slate-50">Do I need to install anything?</h4>
-              <p className="text-sm text-slate-600 dark:text-slate-400">No installation required. ToolCorners is a progressive web application that works directly in any modern browser (Chrome, Firefox, Safari, Edge).</p>
-            </div>
-            <div className="space-y-3">
-              <h4 className="font-bold text-slate-900 dark:text-slate-50">How do you handle large JSON files?</h4>
-              <p className="text-sm text-slate-600 dark:text-slate-400">We use streaming-capable parsers and efficient memory management to handle multi-megabyte files without freezing your browser interface.</p>
-            </div>
-          </div>
-        </div>
+        <AccordionFAQ 
+          items={[
+            {
+              question: "Is ToolCorners really free?",
+              answer: "Yes, 100%. Our mission is to provide high-quality developer tools without the clutter of ads or subscription walls. We believe in open, accessible utilities for the global developer community.",
+              icon: <Zap className="w-4 h-4" />
+            },
+            {
+              question: "Is my data safe here?",
+              answer: "Your data never leaves your browser. We don't have a backend that stores your JSON. The conversion logic runs locally on your device, making it one of the safest tools available online for handling sensitive information.",
+              icon: <ShieldCheck className="w-4 h-4" />
+            },
+            {
+              question: "Is it safe for company or enterprise data?",
+              answer: "Absolutely. Since no data is uploaded to any server, it complies with most corporate security policies. Your infrastructure secrets, API keys, and customer data stay strictly on your local machine.",
+              icon: <Lock className="w-4 h-4" />
+            },
+            {
+              question: "Can I use ToolCorners offline?",
+              answer: "Yes! ToolCorners is a Progressive Web App (PWA). Once you've visited the site, you can continue to use the conversion tools even without an active internet connection.",
+              icon: <Globe className="w-4 h-4" />
+            },
+            {
+              question: "Do I need to install anything?",
+              answer: "No installation required. ToolCorners works directly in any modern browser (Chrome, Firefox, Safari, Edge) across Windows, macOS, and Linux.",
+              icon: <Zap className="w-4 h-4" />
+            }
+          ]}
+        />
       </section>
     </div>
   );

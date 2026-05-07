@@ -2,14 +2,34 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ToolCorners | Premium JSON Conversion Suite",
-  description: "High-performance, industrial-grade client-side JSON tools. Convert JSON to CSV, Excel, XML, and YAML securely.",
+  metadataBase: new URL('https://json.toolcorners.com'),
+  title: "JSON Utilities: Free Online Converters & Tools | ToolCorners",
+  description: "Convert JSON to CSV, Excel, XML, YAML, and more instantly. 100% client-side processing means your data never leaves your browser. Fast, secure, and developer-friendly.",
+  keywords: ["JSON converter", "JSON to CSV", "JSON to Excel", "JSON to XML", "JSON to YAML", "Developer Tools", "Secure JSON Conversion", "online json converter", "free json converter", "online json to etc converter"],
+  authors: [{ name: "ToolCorners" }],
+  openGraph: {
+    title: "JSON Utilities: Free Online Converters & Tools | ToolCorners",
+    description: "Secure, client-side JSON conversion tools for professionals. Fast, secure, and developer-friendly.",
+    url: "https://json.toolcorners.com",
+    siteName: "json.toolcorners.com",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JSON Utilities: Free Online Converters & Tools | ToolCorners",
+    description: "Secure, client-side JSON conversion tools for professionals. Fast, secure, and developer-friendly.",
+  },
+  icons: {
+    icon: "/logo.ico",
+  },
 };
 
 export default function RootLayout({
@@ -23,12 +43,19 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="mesh-gradient" />
           
-          <header className="sticky top-0 z-[100] w-full border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/80 backdrop-blur-md transition-all">
+          <header className="sticky top-0 z-100 w-full border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/80 backdrop-blur-md transition-all">
             <div className="container mx-auto px-6 h-16 flex items-center justify-between">
               <div className="flex-1 flex items-center">
                 <Link href="/" className="flex items-center gap-2 group">
-                  <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-                    <span className="text-white font-bold text-lg">T</span>
+                  <div className="w-10 h-10 flex items-center justify-center overflow-hidden">
+                    <Image 
+                      src="/logo.webp" 
+                      alt="ToolCorners Logo" 
+                      width={40} 
+                      height={40} 
+                      className="object-contain group-hover:scale-110 transition-transform duration-300"
+                      priority
+                    />
                   </div>
                   <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
                     Tool<span className="text-indigo-500">Corners</span>
@@ -36,7 +63,7 @@ export default function RootLayout({
                 </Link>
               </div>
 
-              <nav className="hidden xl:flex flex-[2] justify-center items-center gap-8">
+              <nav className="hidden xl:flex flex-2 justify-center items-center gap-8">
                 <div className="flex gap-6 text-[13px] font-bold uppercase tracking-wider text-slate-900 dark:text-slate-400">
                   <Link href="/json-to-csv" className="hover:text-indigo-600 dark:hover:text-slate-50 transition-colors whitespace-nowrap">JSON to CSV</Link>
                   <Link href="/json-to-excel" className="hover:text-indigo-600 dark:hover:text-slate-50 transition-colors whitespace-nowrap">JSON to Excel</Link>
@@ -54,7 +81,7 @@ export default function RootLayout({
             </div>
           </header>
 
-          <main className="flex-grow container mx-auto px-6 py-12">
+          <main className="grow container mx-auto px-6 pt-6 pb-12">
             {children}
           </main>
 
@@ -62,8 +89,14 @@ export default function RootLayout({
             <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
               <div className="col-span-1 space-y-4">
                 <Link href="/" className="flex items-center gap-2">
-                  <div className="w-7 h-7 bg-indigo-600 rounded-md flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">T</span>
+                  <div className="w-8 h-8 flex items-center justify-center overflow-hidden">
+                    <Image 
+                      src="/logo.webp" 
+                      alt="ToolCorners Logo" 
+                      width={32} 
+                      height={32} 
+                      className="object-contain"
+                    />
                   </div>
                   <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50">
                     ToolCorners
@@ -89,7 +122,7 @@ export default function RootLayout({
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-900 dark:text-slate-500 mb-4">Company</h4>
                 <ul className="text-slate-700 dark:text-slate-400 text-sm space-y-2 font-medium">
-                  <li><Link href="/privacy" className="hover:text-indigo-500 transition-colors">Privacy Policy</Link></li>
+                  <li><Link href="/privacy-policy" className="hover:text-indigo-500 transition-colors">Privacy Policy</Link></li>
                   <li><Link href="/terms" className="hover:text-indigo-500 transition-colors">Terms of Service</Link></li>
                   <li><Link href="#" className="hover:text-indigo-500 transition-colors">About Us</Link></li>
                 </ul>

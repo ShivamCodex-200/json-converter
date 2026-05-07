@@ -2,6 +2,8 @@
 
 import ConverterInterface from '@/components/ConverterInterface';
 import JsonTableOutput from '@/components/JsonTableOutput';
+import AccordionFAQ from '@/components/AccordionFAQ';
+import { ShieldCheck, Zap, Braces, FileText, Table } from 'lucide-react';
 
 export default function JsonToTableClient() {
   const sampleJson = [
@@ -62,19 +64,19 @@ export default function JsonToTableClient() {
         <div className="space-y-8 py-8 border-y border-slate-200 dark:border-slate-800">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Common Use Cases</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Debugging API Payloads</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Quickly visualize large REST API responses to ensure the data structure matches your application requirements.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Customer Data Review</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">View user exports or customer lists in a clean grid for quality assurance and manual data verification.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Log File Analysis</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Transform complex JSON application logs into a tabular format for easier scanning of errors and events.</p>
             </div>
-            <div className="p-6 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-200 dark:border-slate-800">
+            <div className="p-6 bg-slate-50 dark:bg-white/2 rounded-2xl border border-slate-200 dark:border-slate-800">
               <h5 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2">Product Catalog Audit</h5>
               <p className="text-xs text-slate-600 dark:text-slate-400">Scan through large product JSON exports in a grid to verify pricing, descriptions, and stock levels.</p>
             </div>
@@ -82,35 +84,30 @@ export default function JsonToTableClient() {
         </div>
 
         {/* FAQ Section */}
-        <div className="space-y-10">
-          <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-50 text-center">Frequently Asked Questions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Can it handle nested JSON?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Yes. Our engine automatically flattens nested objects and arrays into a relational table structure, using dot-notation for headers.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Can I export the table to PDF?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                Yes! Once your data is loaded, you can download a professionally formatted PDF report directly from the interface.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is there a row limit?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                The tool can handle thousands of rows smoothly. For extremely large datasets (10,000+ rows), performance will depend on your browser's memory.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50">Is it mobile responsive?</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm font-medium leading-relaxed">
-                While the grid is optimized for desktop analysis, the interface is fully responsive and allows you to view data on any device.
-              </p>
-            </div>
-          </div>
-        </div>
+        <AccordionFAQ 
+          items={[
+            {
+              question: "Can it handle nested JSON?",
+              answer: "Yes. Our engine automatically flattens nested objects and arrays into a relational table structure, using dot-notation for headers.",
+              icon: <Braces className="w-4 h-4" />
+            },
+            {
+              question: "Can I export the table to PDF?",
+              answer: "Yes! Once your data is loaded, you can download a professionally formatted PDF report directly from the interface.",
+              icon: <FileText className="w-4 h-4" />
+            },
+            {
+              question: "Is there a row limit?",
+              answer: "The tool can handle thousands of rows smoothly. For extremely large datasets (10,000+ rows), performance will depend on your browser's memory and processor.",
+              icon: <Zap className="w-4 h-4" />
+            },
+            {
+              question: "Is my data secure in the table view?",
+              answer: "Absolutely. The table is rendered entirely in your browser's memory. No data is sent to any server for processing or rendering.",
+              icon: <ShieldCheck className="w-4 h-4" />
+            }
+          ]}
+        />
       </section>
     </div>
   );
