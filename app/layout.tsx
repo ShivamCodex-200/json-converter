@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -135,6 +136,7 @@ export default function RootLayout({
           </footer>
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId="G-XWCVPJL0K7" />
     </html>
   );
 }
